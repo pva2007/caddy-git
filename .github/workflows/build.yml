@@ -1,10 +1,7 @@
-# This is a basic workflow to help you get started with Actions
-
-name: build and push image
-
-# Controls when the workflow will run
+name: Build and publish a Docker image to ghcr.io
 on:
-   # publish on releases, e.g. v2.1.13 (image tagged as "2.1.13" - "v" prefix is removed)
+
+  # publish on releases, e.g. v2.1.13 (image tagged as "2.1.13" - "v" prefix is removed)
   release:
     types: [ published ]
 
@@ -13,20 +10,12 @@ on:
     branches:
       - master
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+  docker_publish:
+    runs-on: "ubuntu-20.04"
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       # https://github.com/marketplace/actions/push-to-ghcr
       - name: Build and publish a Docker image for ${{ github.repository }}
@@ -34,4 +23,7 @@ jobs:
         with:
           image_name: ${{ github.repository }}  # it will be lowercased internally
           github_token: ${{ secrets.PUSH_SECRET }}
-        
+          # optionally push to the Docker Hub (docker.io)
+          # docker_io_token: ${{ secrets.DOCKER_IO_ACCESS_TOKEN }}  # see https://hub.docker.com/settings/security
+          # customize the username to be used when pushing to the Docker Hub
+          # docker_io_user: foobar  # see https://github.com/macbre/push-to-ghcr/issues/14
