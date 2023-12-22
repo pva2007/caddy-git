@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v5.1.0
         with:
           # List of target platforms for build
-          platforms: linux/amd64,linux/arm64 # optional
+          platforms: linux/arm64 # optional
           # GitHub Token used to authenticate against a repository for Git context
           github-token: ${{ secrets.PUSH_SECRET }} # optional, default is ${{ github.token }}
                 
