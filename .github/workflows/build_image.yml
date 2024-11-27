@@ -29,7 +29,7 @@ jobs:
         #  # customize the username to be used when pushing to the Docker Hub
         #  # docker_io_user: foobar  # see https://github.com/macbre/push-to-ghcr/issues/14
 
-        uses: docker/build-push-action@v5.1.0
+        uses: docker/build-push-action@v6.10.0
         with:
           # List of target platforms for build
           platforms: linux/arm64 # optional
